@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import { StyleSheet, TextInput, View, Text, ScrollView, Button } from "react-native";
+import { useDispatch } from "react-redux";
+
+import { addPlace } from "../store/actions/places";
 import Colors from "../constants/Colors";
 
-const NewPlace = () => {
+const NewPlace = props => {
+  const dispatch = useDispatch();
   const [placeName, setPlaceName] = useState("");
 
   const titleChangeHandler = text => {
     setPlaceName(text);
   };
 
-  const savePlaceHandler = () => {};
+  const savePlaceHandler = () => {
+    dispatch(addPlace(placeName));
+    props.navigation.goBack();
+  };
 
   return (
     <ScrollView>

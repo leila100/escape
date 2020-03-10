@@ -9,14 +9,19 @@ import Colors from "../constants/Colors";
 const NewPlace = props => {
   const dispatch = useDispatch();
   const [placeName, setPlaceName] = useState("");
+  const [imageUri, setImageUri] = useState("");
 
   const titleChangeHandler = text => {
     setPlaceName(text);
   };
 
   const savePlaceHandler = () => {
-    dispatch(addPlace(placeName));
+    dispatch(addPlace(placeName, imageUri));
     props.navigation.goBack();
+  };
+
+  const imageTakeHandler = uri => {
+    setImageUri(uri);
   };
 
   return (
@@ -24,7 +29,7 @@ const NewPlace = props => {
       <View style={styles.form}>
         <Text style={styles.label}>Title</Text>
         <TextInput style={styles.input} value={placeName} onChangeText={titleChangeHandler} />
-        <ImagePicker />
+        <ImagePicker onImageTake={imageTakeHandler} />
         <Button title='Save Place' color={Colors.primary} onPress={savePlaceHandler} />
       </View>
     </ScrollView>

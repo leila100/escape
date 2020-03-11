@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, ActivityIndicator, Alert } from "react-
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 
+import MapPreview from "./MapPreview";
 import Colors from "../constants/Colors";
 
 // Only needed for IOS. It's automatic in android
@@ -18,6 +19,7 @@ const verifyPermissions = async () => {
 const LocationPicker = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [pickedLocation, setPickerLocation] = useState();
+
   const getLocationHandler = async () => {
     const hasPermission = await verifyPermissions();
     if (!hasPermission) return;
@@ -35,10 +37,10 @@ const LocationPicker = () => {
 
   return (
     <View style={styles.locationPicker}>
-      <View style={styles.mapPreview}>
+      <MapPreview style={styles.mapPreview} location={pickedLocation}>
         {isFetching ? <ActivityIndicator size='large' color={Colors.primary} /> : <Text>No location chosen yet!</Text>}
-      </View>
-      <Button title='Get USer Location' color={Colors.primary} onPress={getLocationHandler} />
+      </MapPreview>
+      <Button title='Get User Location' color={Colors.primary} onPress={getLocationHandler} />
     </View>
   );
 };
@@ -52,9 +54,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 150,
     borderColor: "#ccc",
-    borderWidth: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    borderWidth: 1
   }
 });
 

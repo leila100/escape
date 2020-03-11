@@ -31,7 +31,7 @@ const NewPlace = props => {
         <Text style={styles.label}>Title</Text>
         <TextInput style={styles.input} value={placeName} onChangeText={titleChangeHandler} />
         <ImagePicker onImageTake={imageTakeHandler} />
-        <LocationPicker />
+        <LocationPicker navigation={props.navigation} />
         <Button title='Save Place' color={Colors.primary} onPress={savePlaceHandler} />
       </View>
     </ScrollView>

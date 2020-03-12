@@ -10,11 +10,12 @@ export default PlacesReducer = (state = initialState, action) => {
     case SET_PLACES:
       return {
         ...state,
-        places: action.places.map(pl => new Place(pl.id.toString(), pl.title, pl.imageUri))
+        places: action.places.map(pl => new Place(pl.id.toString(), pl.title, pl.imageUri, pl.address, pl.lat, pl.lng))
       };
 
     case ADD_PLACE:
-      const newPlace = new Place(action.placeData.id.toString(), action.placeData.title, action.placeData.imageUri);
+      const { id, title, imageUri, address, coords } = action.placeData;
+      const newPlace = new Place(id.toString(), title, imageUri, address, coords.lat, coords.lng);
       return {
         ...state,
         places: [newPlace, ...state.places]
